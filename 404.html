@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página não encontrada | Eduardo Kainan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .notfound {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .notfound h1 {
+      font-size: clamp(100px, 16vw, 180px);
+      line-height: 1;
+      margin: 0;
+      background: linear-gradient(135deg, var(--brand), var(--brand-strong));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .notfound p {
+      font-size: 20px;
+      color: var(--muted);
+      margin: 16px 0 32px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="glow-wrap" aria-hidden="true">
+      <div class="glow one"></div>
+      <div class="soft-grid"></div>
+    </div>
+    <div class="notfound">
+      <h1>404</h1>
+      <p>Essa página não existe (ou ainda não foi criada).</p>
+      <a class="primary-cta" href="/">Voltar para Home <span class="arrow">→</span></a>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Remove .html extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# 404 page
+ErrorDocument 404 /404.html
+
+# Compressão
+AddOutputFilterByType DEFLATE text/html text/css text/javascript image/svg+xml
+
+# Cache
+<FilesMatch "\.(jpg|jpeg|png|webp|svg|css|js)$">
+Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>

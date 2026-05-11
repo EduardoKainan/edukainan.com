@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Eduardo Kainan</title>
+  <meta name="description" content="Artigos sobre tráfego pago, automação, Meta Ads, Google Ads e captação de clientes para advogados e prestadores de serviço." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="glow-wrap" aria-hidden="true">
+      <div class="glow blog"></div>
+      <div class="soft-grid"></div>
+    </div>
+
+    <div class="navbar-shell">
+      <nav class="navbar" aria-label="Menu principal">
+        <a href="/" class="brand">Eduardo<span>Kainan</span></a>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="sobre">Sobre</a>
+          <a href="servicos">Serviços</a>
+          <a href="blog.html">Blog</a>
+          <a href="contato">Contato</a>
+        </div>
+        <a class="signup" href="https://wa.me/5500000000000">WhatsApp <span class="arrow">↗</span></a>
+      </nav>
+    </div>
+
+    <div class="page-header">
+      <h1 class="reveal">Blog</h1>
+      <p class="reveal">Tráfego pago, automação, criativos e conversão — direto ao ponto, sem teoria vazia.</p>
+    </div>
+
+    <div class="container" id="blog-container">
+      <div class="blog-grid" id="blog-grid"></div>
+    </div>
+
+    <div class="container" id="post-container" style="display: none;">
+      <article class="blog-post" id="post-content"></article>
+      <div style="text-align: center; padding-bottom: 60px;">
+        <a class="ghost-link" href="blog.html" style="font-size: 15px;">← Voltar para o blog</a>
+      </div>
+    </div>
+
+    <footer class="container">
+      <span>&copy; 2026 Eduardo Kainan — Tráfego Pago & Automação</span>
+      <div class="footer-links">
+        <a href="sobre">Sobre</a>
+        <a href="servicos">Serviços</a>
+        <a href="blog.html">Blog</a>
+        <a href="contato">Contato</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/blog-data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    (function() {
+      const grid = document.getElementById('blog-grid');
+      const postContainer = document.getElementById('post-container');
+      const postContent = document.getElementById('post-content');
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('post');
+
+      if (slug) {
+        const post = BLOG_POSTS.find(p => p.slug === slug);
+        if (post) {
+          grid.style.display = 'none';
+          postContainer.style.display = 'block';
+          document.title = post.title + ' | Eduardo Kainan';
+          postContent.innerHTML = `
+            <div class="post-header reveal">
+              <span class="tag">${post.category}</span>
+              <h1>${post.title}</h1>
+              <div class="meta">${post.date} · ${post.readTime} de leitura</div>
+            </div>
+            <div class="post-content reveal">${post.content}</div>
+          `;
+
+          // Add CTA at end of post
+          const cta = document.createElement('div');
+          cta.className = 'cta-panel reveal';
+          cta.style.cssText = 'margin: 50px 0;';
+          cta.innerHTML = `
+            <div>
+              <h2>Gostou do conteúdo?</h2>
+              <p>Me chama no WhatsApp pra gente conversar sobre sua estratégia de tráfego pago.</p>
+            </div>
+            <a class="primary-cta" href="https://wa.me/5500000000000">Falar com Eduardo <span class="arrow">→</span></a>
+          `;
+          postContent.appendChild(cta);
+
+          // Re-run reveals
+          setTimeout(() => {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
+          }, 100);
+          return;
+        }
+      }
+
+      // Show blog grid
+      if (BLOG_POSTS.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:60px 0;">Nenhum post publicado ainda. Volte em breve!</p>';
+      } else {
+        BLOG_POSTS.forEach((post, i) => {
+          const card = document.createElement('article');
+          card.className = 'blog-card reveal';
+          card.innerHTML = `
+            <div class="card-img">${post.emoji}</div>
+            <div class="card-body">
+              <span class="tag">${post.category}</span>
+              <h3>${post.title}</h3>
+              <p>${post.excerpt}</p>
+              <div class="meta">
+                <span>${post.date}</span>
+                <span>${post.readTime}</span>
+              </div>
+            </div>
+          `;
+          card.addEventListener('click', () => {
+            window.location.href = 'blog.html?post=' + post.slug;
+          });
+          grid.appendChild(card);
+        });
+      }
+
+      // Trigger reveals after render
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
+      }, 100);
+    })();
+  </script>
+</body>
+</html>
